@@ -40,76 +40,67 @@ it('changed button text on click', () => {
 
   expect(button.props.title).toBe('click to start contraction');
 
-  button.props.onPress();
+  startContraction();
 
   expect(button.props.title).toBe('click to end contraction');
 
-  button.props.onPress();
+  stopContraction();
 
   expect(button.props.title).toBe('click to start contraction');
 });
 
 it('tracks the duration of the contraction', () => {
-  let button = component.findByType(Button);
-
-  button.props.onPress();
+  startContraction();
   advanceBy(oneMinuteInMs);
-  button.props.onPress();
+  stopContraction();
 
-  let durationTextList = component.findAll(n => n.type == 'Text' && n.props.className == 'contraction');
+  let durationTextList = findAllContractionComponents();
   expect(durationTextList).toHaveLength(1);
-  let durationText = durationTextList[0].props.children;
+  let durationText = getText(durationTextList[0]);
   expect(durationText).toBe('Duration: 0h 1m 0s');
 });
 
 it('doesn\'t display duration if contraction hasn\'t ended', () => {
-  let button = component.findByType(Button);
+  startContraction();
 
-  button.props.onPress();
-
-  let durationTextList = component.findAll(n => n.type == 'Text' && n.props.className == 'contraction');
+  let durationTextList = findAllContractionComponents();
   expect(durationTextList).toHaveLength(0);
 });
 
 it('tracks the frequency of consecutive contractions', () => {
-  let button = component.findByType(Button);
-
-  button.props.onPress();
-  button.props.onPress();
+  startContraction();
+  stopContraction();
   advanceBy(oneMinuteInMs);
-  button.props.onPress();
+  startContraction();
 
-  let frequencyTextList = component.findAll(n => n.type == 'Text' && n.props.className == 'contraction');
+  let frequencyTextList = findAllContractionComponents();
   expect(frequencyTextList).toHaveLength(2);
-  let frequencyText = frequencyTextList[1].props.children;
+  let frequencyText = getText(frequencyTextList[1]);
   expect(frequencyText).toBe('Frequency: 0h 1m 0s');
 });
 
 it('tracks the frequency and duration of complete contractions', () => {
-  let button = component.findByType(Button);
-
-  button.props.onPress();
-  button.props.onPress();
+  startContraction();
+  stopContraction();
   advanceBy(oneMinuteInMs);
-  button.props.onPress();
-  button.props.onPress();
+  startContraction();
+  stopContraction();
 
-  let frequencyTextList = component.findAll(n => n.type == 'Text' && n.props.className == 'contraction');
+  let frequencyTextList = findAllContractionComponents();
   expect(frequencyTextList).toHaveLength(2);
-  let frequencyText = frequencyTextList[1].props.children;
+  let frequencyText = getText(frequencyTextList[1]);
   expect(frequencyText).toBe('Frequency: 0h 1m 0s, Duration: 0h 0m 0s');
 });
 
 it('should throw an alert when contractions get to be 5 minutes apart and 1 minute long', () => {
   let alertSpy = jest.spyOn(Alert, 'alert');
-  let button = component.findByType(Button);
 
-  button.props.onPress();
-  button.props.onPress();
+  startContraction();
+  stopContraction();
   advanceBy(fiveMinutesInMs);
-  button.props.onPress();
+  startContraction();
   advanceBy(oneMinuteInMs);
-  button.props.onPress();
+  stopContraction();
 
   expect(alertSpy).toHaveBeenCalled();
   expect(alertSpy).toBeCalledWith('511! You\'ll want to head to the hospital in an hour!');
@@ -118,12 +109,12 @@ it('should throw an alert when contractions get to be 5 minutes apart and 1 minu
 it('should throw an alert if it\'s been an hour since contractions are 5 minutes apart and 1 minute long', () => {
   let alertSpy = jest.spyOn(Alert, 'alert');
   let button = component.findByType(Button);
-  button.props.onPress();
-  button.props.onPress();
+  startContraction();
+  stopContraction();
   advanceBy(fiveMinutesInMs);
-  button.props.onPress();
+  startContraction();
   advanceBy(oneMinuteInMs);
-  button.props.onPress();
+  stopContraction();
   alertSpy.mockClear();
 
   jest.advanceTimersByTime(oneHourInMs - 1);
@@ -135,3 +126,19 @@ it('should throw an alert if it\'s been an hour since contractions are 5 minutes
   expect(alertSpy).toHaveBeenCalled();
   expect(alertSpy).toBeCalledWith('511! It\'s been an hour! Head to the hospital!');
 });
+
+function startContraction() {
+  component.findByType(Button).props.onPress();
+}
+
+function stopContraction() {
+  component.findByType(Button).props.onPress();
+}
+
+function findAllContractionComponents() {
+  return component.findAll(n => n.type == 'Text' && n.props.className == 'contraction');
+}
+
+function getText(textComponent) {
+  return textComponent.props.children
+}
