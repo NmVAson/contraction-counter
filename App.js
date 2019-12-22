@@ -1,28 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import BootstrapStyleSheet from 'react-native-bootstrap-styles';
 
 import StartStopContractionButton from './components/StartStopContractionButton';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Yay! We're in labor!</Text>
-      <StartStopContractionButton/>
+    <View style={[s.container, s.mt5, s.justifyContentCenter, s.alignItemsCenter]}>
+      <Text style={s.h1}>Yay! We're in labor!</Text>
+      <StartStopContractionButton styles={s}/>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 100,
-  },
-  title: {
-    color: '#141823',
-    fontSize: 30,
-    paddingBottom: 20
-  }
-});
+const bootstrapStyleSheet = new BootstrapStyleSheet();
+const s = bootstrapStyleSheet.create();

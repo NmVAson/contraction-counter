@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`matches previous snapshot 1`] = `
-<View>
+<View
+  style={null}
+>
   <View
     accessibilityRole="button"
     accessibilityStates={Array []}
@@ -45,11 +47,8 @@ exports[`matches previous snapshot 1`] = `
     </View>
   </View>
   <RCTScrollView
-    style={
-      Object {
-        "padding": 10,
-      }
-    }
+    onContentSizeChange={[Function]}
+    style={null}
   >
     <View />
   </RCTScrollView>

@@ -6,10 +6,17 @@ import { advanceBy, clear } from 'jest-date-mock';
 import TestRenderer from 'react-test-renderer';
 
 const oneMinuteInMs = 60000;
+const fiveMinutesInMs = 300000;
+const fakeStyles = {
+  h75: null,
+  mt4: null,
+  text: null,
+  h5: null
+};
 let component;
 
 beforeEach(() => {
-  let testInstance = TestRenderer.create(<StartStopContractionButton />);
+  let testInstance = TestRenderer.create(<StartStopContractionButton styles={fakeStyles}/>);
   component = testInstance.root;
 });
 
@@ -18,7 +25,7 @@ afterEach(() => {
 });
 
 it('matches previous snapshot', () => {
-  let tree = TestRenderer.create(<StartStopContractionButton />).toJSON();
+  let tree = TestRenderer.create(<StartStopContractionButton styles={fakeStyles}/>).toJSON();
   
   expect(tree).toMatchSnapshot();
 });
@@ -46,7 +53,7 @@ it('tracks the duration of the contraction', () => {
 
   let durationTextList = component.findAll(n => n.type == 'Text' && n.props.className == 'contraction');
   expect(durationTextList).toHaveLength(1);
-  let durationText = durationTextList[0].props.children.join("");
+  let durationText = durationTextList[0].props.children;
   expect(durationText).toBe('Duration: 0h 1m 0s');
 });
 
@@ -69,7 +76,7 @@ it('tracks the frequency of consecutive contractions', () => {
 
   let frequencyTextList = component.findAll(n => n.type == 'Text' && n.props.className == 'contraction');
   expect(frequencyTextList).toHaveLength(2);
-  let frequencyText = frequencyTextList[1].props.children.join("");
+  let frequencyText = frequencyTextList[1].props.children;
   expect(frequencyText).toBe('Frequency: 0h 1m 0s');
 });
 
@@ -84,6 +91,6 @@ it('tracks the frequency and duration of complete contractions', () => {
 
   let frequencyTextList = component.findAll(n => n.type == 'Text' && n.props.className == 'contraction');
   expect(frequencyTextList).toHaveLength(2);
-  let frequencyText = frequencyTextList[1].props.children.join("");
+  let frequencyText = frequencyTextList[1].props.children;
   expect(frequencyText).toBe('Frequency: 0h 1m 0s, Duration: 0h 0m 0s');
 });

@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Button, ScrollView, Text} from 'react-native';
+import {StyleSheet, View, Button, ScrollView, Text, Alert} from 'react-native';
 import moment from 'moment';
+
+const numberOfMinutesBetweenContractions = 5.5;
+const numberOfMinutesForAContraction = .75;
 
 export default class StartStopContractionButton extends Component {
   constructor(props) {
@@ -18,7 +21,7 @@ export default class StartStopContractionButton extends Component {
     let newTitle;
 
     if(isStartingANewContraction) {
-      this.state.contractions.push({start: moment(), end: null})
+      this.state.contractions.push({start: moment(), end: null});
       newTitle = 'click to end contraction';
     } else {
       let currentContraction = this.state.contractions.pop();
@@ -34,6 +37,10 @@ export default class StartStopContractionButton extends Component {
     }));
   }
 
+  createContractionComponent(text) {
+    return <Text className='contraction' style={[this.props.styles.text, this.props.styles.h5]}>{text}</Text>;
+  }
+
   renderContraction(c, i, contractions) {
     if(!c.end && i ==0) return;
 
@@ -41,36 +48,34 @@ export default class StartStopContractionButton extends Component {
       let duration = moment.duration(c.end.diff(c.start));
       let durationLabel = moment.utc(duration.as('milliseconds')).format("H[h] m[m] s[s]");
       
-      return <Text className='contraction' key={c.start.format()}>Duration: {durationLabel}</Text>
+      return this.createContractionComponent(`Duration: ${durationLabel}`);
     } else {
       let frequency = moment.duration(c.start.diff(contractions[i-1].start));
       let frequencyLabel = moment.utc(frequency.as('milliseconds')).format("H[h] m[m] s[s]");
       
       if(!c.end) {
-        return <Text className='contraction' key={c.start.format()}>Frequency: {frequencyLabel}</Text>;
+        return this.createContractionComponent(`Frequency: ${frequencyLabel}`);
       }
 
       let duration = moment.duration(c.end.diff(c.start));
       let durationLabel = moment.utc(duration.as('milliseconds')).format("H[h] m[m] s[s]");
-      return <Text className='contraction' key={c.start.format()}>Frequency: {frequencyLabel}, Duration: {durationLabel}</Text>;
+      return this.createContractionComponent(`Frequency: ${frequencyLabel}, Duration: ${durationLabel}`);
     }
   }
 
   render() {
-    return (<View>
+    return (<View style={this.props.styles.h75}>
       <Button 
         title={this.state.title}
         onPress={this.toggleContraction.bind(this)}/>
-      <ScrollView style={styles.scrollView}>
-        {this.state.contractions.map(this.renderContraction)}
+      <ScrollView 
+        ref={ref => this.scrollView = ref}
+        onContentSizeChange={(contentWidth, contentHeight) => {        
+            this.scrollView.scrollToEnd({animated: true});
+        }}
+        style={this.props.styles.mt4}>
+        {this.state.contractions.map(this.renderContraction.bind(this))}
       </ScrollView>
     </View>);
   }
 }
-
-
-const styles = StyleSheet.create({
-  scrollView: {
-    padding: 10
-  }
-});
