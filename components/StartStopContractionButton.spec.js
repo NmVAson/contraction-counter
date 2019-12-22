@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Button, Text} from 'react-native';
+import {View, Button, Text, Alert} from 'react-native';
 import StartStopContractionButton from './StartStopContractionButton';
 import { advanceBy, clear } from 'jest-date-mock';
 
@@ -22,6 +22,7 @@ beforeEach(() => {
 
 afterEach(() => {
   clear();
+  jest.restoreAllMocks();
 });
 
 it('matches previous snapshot', () => {
@@ -93,4 +94,19 @@ it('tracks the frequency and duration of complete contractions', () => {
   expect(frequencyTextList).toHaveLength(2);
   let frequencyText = frequencyTextList[1].props.children;
   expect(frequencyText).toBe('Frequency: 0h 1m 0s, Duration: 0h 0m 0s');
+});
+
+it('should throw an alert when contractions get to be 5 minutes apart and 1 minute long', () => {
+  let alertSpy = jest.spyOn(Alert, 'alert');
+  let button = component.findByType(Button);
+
+  button.props.onPress();
+  button.props.onPress();
+  advanceBy(fiveMinutesInMs);
+  button.props.onPress();
+  advanceBy(oneMinuteInMs);
+  button.props.onPress();
+
+  expect(alertSpy).toHaveBeenCalled();
+  expect(alertSpy).toBeCalledWith('511! You\'ll want to head to the hospital in an hour!');
 });

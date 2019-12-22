@@ -59,6 +59,13 @@ export default class StartStopContractionButton extends Component {
 
       let duration = moment.duration(c.end.diff(c.start));
       let durationLabel = moment.utc(duration.as('milliseconds')).format("H[h] m[m] s[s]");
+
+      let isAboutFiveMinutesApart = frequency.asMinutes() <= numberOfMinutesBetweenContractions;
+      let lastedAboutAMinute = duration.asMinutes() >= numberOfMinutesForAContraction;
+      let shouldCallDocInAnHour = isAboutFiveMinutesApart && lastedAboutAMinute;
+      if(shouldCallDocInAnHour) {
+        Alert.alert('511! You\'ll want to head to the hospital in an hour!');
+      }
       return this.createContractionComponent(`Frequency: ${frequencyLabel}, Duration: ${durationLabel}`);
     }
   }
