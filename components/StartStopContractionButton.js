@@ -35,18 +35,24 @@ export default class StartStopContractionButton extends Component {
   }
 
   renderContraction(c, i, contractions) {
-    if(!c.end) return;
-
-    let diff = c.start.diff(c.end);
-    let duration = moment.duration(diff).humanize();
+    if(!c.end && i ==0) return;
 
     if(i == 0) {
-      return <Text className='contraction' key={c.start.format()}>{duration}</Text>
+      let duration = moment.duration(c.end.diff(c.start));
+      let durationLabel = moment.utc(duration.as('milliseconds')).format("H[h] m[m] s[s]");
+      
+      return <Text className='contraction' key={c.start.format()}>Duration: {durationLabel}</Text>
     } else {
-      let diffFromLastContraction = c.start.diff(contractions[i-1].start);
-      let frequency = moment.duration(diffFromLastContraction).humanize();
+      let frequency = moment.duration(c.start.diff(contractions[i-1].start));
+      let frequencyLabel = moment.utc(frequency.as('milliseconds')).format("H[h] m[m] s[s]");
+      
+      if(!c.end) {
+        return <Text className='contraction' key={c.start.format()}>Frequency: {frequencyLabel}</Text>;
+      }
 
-      return <Text className='contraction' key={c.start.format()}>{duration}, {frequency} apart</Text>;
+      let duration = moment.duration(c.end.diff(c.start));
+      let durationLabel = moment.utc(duration.as('milliseconds')).format("H[h] m[m] s[s]");
+      return <Text className='contraction' key={c.start.format()}>Frequency: {frequencyLabel}, Duration: {durationLabel}</Text>;
     }
   }
 

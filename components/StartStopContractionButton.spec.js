@@ -46,8 +46,8 @@ it('tracks the duration of the contraction', () => {
 
   let durationTextList = component.findAll(n => n.type == 'Text' && n.props.className == 'contraction');
   expect(durationTextList).toHaveLength(1);
-  let durationText = durationTextList[0].props.children;
-  expect(durationText).toBe('a minute');
+  let durationText = durationTextList[0].props.children.join("");
+  expect(durationText).toBe('Duration: 0h 1m 0s');
 });
 
 it('doesn\'t display duration if contraction hasn\'t ended', () => {
@@ -66,10 +66,24 @@ it('tracks the frequency of consecutive contractions', () => {
   button.props.onPress();
   advanceBy(oneMinuteInMs);
   button.props.onPress();
+
+  let frequencyTextList = component.findAll(n => n.type == 'Text' && n.props.className == 'contraction');
+  expect(frequencyTextList).toHaveLength(2);
+  let frequencyText = frequencyTextList[1].props.children.join("");
+  expect(frequencyText).toBe('Frequency: 0h 1m 0s');
+});
+
+it('tracks the frequency and duration of complete contractions', () => {
+  let button = component.findByType(Button);
+
+  button.props.onPress();
+  button.props.onPress();
+  advanceBy(oneMinuteInMs);
+  button.props.onPress();
   button.props.onPress();
 
   let frequencyTextList = component.findAll(n => n.type == 'Text' && n.props.className == 'contraction');
   expect(frequencyTextList).toHaveLength(2);
   let frequencyText = frequencyTextList[1].props.children.join("");
-  expect(frequencyText).toBe('a few seconds, a minute apart');
+  expect(frequencyText).toBe('Frequency: 0h 1m 0s, Duration: 0h 0m 0s');
 });
