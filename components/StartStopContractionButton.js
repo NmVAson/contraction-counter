@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Button, ScrollView, Text, Alert} from 'react-native';
 import moment from 'moment';
+import shortid from 'shortid';
 
 const numberOfMinutesBetweenContractions = 5.5;
 const numberOfMinutesForAContraction = .75;
+const oneHourInMs = 3600000;
 
 export default class StartStopContractionButton extends Component {
   constructor(props) {
@@ -38,7 +40,10 @@ export default class StartStopContractionButton extends Component {
   }
 
   createContractionComponent(text) {
-    return <Text className='contraction' style={[this.props.styles.text, this.props.styles.h5]}>{text}</Text>;
+    return <Text 
+      className='contraction' 
+      style={[this.props.styles.text, this.props.styles.h5]}
+      key={shortid.generate()}>{text}</Text>;
   }
 
   renderContraction(c, i, contractions) {
@@ -65,6 +70,7 @@ export default class StartStopContractionButton extends Component {
       let shouldCallDocInAnHour = isAboutFiveMinutesApart && lastedAboutAMinute;
       if(shouldCallDocInAnHour) {
         Alert.alert('511! You\'ll want to head to the hospital in an hour!');
+        setTimeout(() => Alert.alert('511! It\'s been an hour! Head to the hospital!'), oneHourInMs);
       }
       return this.createContractionComponent(`Frequency: ${frequencyLabel}, Duration: ${durationLabel}`);
     }

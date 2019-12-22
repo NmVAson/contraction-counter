@@ -7,6 +7,7 @@ import TestRenderer from 'react-test-renderer';
 
 const oneMinuteInMs = 60000;
 const fiveMinutesInMs = 300000;
+const oneHourInMs = 3600000;
 const fakeStyles = {
   h75: null,
   mt4: null,
@@ -18,11 +19,14 @@ let component;
 beforeEach(() => {
   let testInstance = TestRenderer.create(<StartStopContractionButton styles={fakeStyles}/>);
   component = testInstance.root;
+
+  jest.useFakeTimers();
 });
 
 afterEach(() => {
   clear();
   jest.restoreAllMocks();
+  jest.runAllTimers();
 });
 
 it('matches previous snapshot', () => {
@@ -109,4 +113,25 @@ it('should throw an alert when contractions get to be 5 minutes apart and 1 minu
 
   expect(alertSpy).toHaveBeenCalled();
   expect(alertSpy).toBeCalledWith('511! You\'ll want to head to the hospital in an hour!');
+});
+
+it('should throw an alert if it\'s been an hour since contractions are 5 minutes apart and 1 minute long', () => {
+  let alertSpy = jest.spyOn(Alert, 'alert');
+  let button = component.findByType(Button);
+  button.props.onPress();
+  button.props.onPress();
+  advanceBy(fiveMinutesInMs);
+  button.props.onPress();
+  advanceBy(oneMinuteInMs);
+  button.props.onPress();
+  alertSpy.mockClear();
+
+  jest.advanceTimersByTime(oneHourInMs - 1);
+
+  expect(alertSpy).not.toHaveBeenCalled();
+
+  jest.advanceTimersByTime(1);
+
+  expect(alertSpy).toHaveBeenCalled();
+  expect(alertSpy).toBeCalledWith('511! It\'s been an hour! Head to the hospital!');
 });
