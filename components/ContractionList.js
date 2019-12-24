@@ -4,21 +4,19 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import moment from 'moment';
 import shortid from 'shortid';
 
+import ContractionCalculator from '../services/ContractionCalculator';
+
 export default class ContractionList extends Component {
   getDuration(contraction) {
     if(!contraction.end) return;
-
-    let diff = contraction.end.diff(contraction.start);
-    let duration = moment.duration(diff).as('milliseconds');
-    return moment.utc(duration).format("m[m] s[s]");
+    
+    return ContractionCalculator.getDurationToDisplay(contraction);
   }
 
   getFrequency(contraction, prevContraction) {
     if(!prevContraction) return;
-
-    let frequencyDiff = contraction.start.diff(prevContraction.start);
-    let frequency = moment.duration(frequencyDiff).as('milliseconds');
-    return moment.utc(frequency).format("H[h] m[m] s[s]");
+    
+    return ContractionCalculator.getFrequencyToDisplay(prevContraction, contraction);
   }
 
   createRow(contraction, i, contractions) {
