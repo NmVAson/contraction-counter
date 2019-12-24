@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {View, Button} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import Button from "react-native-bootstrap-buttons";
 
 export default class StartStopContractionButton extends Component {
   constructor(props) {
@@ -30,7 +31,16 @@ export default class StartStopContractionButton extends Component {
 
   render() {
     return (<Button 
-        title={this.state.title}
+        label={this.state.title}
+        labelStyle={styles.buttonLabel}
         onPress={this.toggleContraction.bind(this)}/>);
   }
 }
+
+const styles = StyleSheet.create({
+  buttonLabel: { 
+    fontSize: 20, 
+    padding: 20,
+    textAlign: 'center'
+  }
+});

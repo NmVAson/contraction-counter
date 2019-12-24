@@ -62,8 +62,10 @@ const styles = StyleSheet.create({
   body: { 
     paddingLeft: 20,
     paddingRight: 20,
-    marginTop: 6,
-    marginBottom: 6
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderBottomColor: '#f1f8ff',
+    borderBottomWidth: 2
   },
   text: {
     fontSize: 20

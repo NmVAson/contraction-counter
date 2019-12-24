@@ -2,8 +2,6 @@
 
 exports[`matches previous snapshot 1`] = `
 <View
-  accessibilityRole="button"
-  accessibilityStates={Array []}
   accessible={true}
   focusable={true}
   isTVSelectable={true}
@@ -16,31 +14,30 @@ exports[`matches previous snapshot 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Object {
+      "backgroundColor": "#0984e3",
+      "borderRadius": 5,
       "opacity": 1,
     }
   }
 >
-  <View
+  <Text
     style={
       Array [
-        Object {},
+        Object {
+          "padding": 10,
+        },
+        Object {
+          "color": "#ffffff",
+        },
+        Object {
+          "fontSize": 20,
+          "padding": 20,
+          "textAlign": "center",
+        },
       ]
     }
   >
-    <Text
-      style={
-        Array [
-          Object {
-            "color": "#007AFF",
-            "fontSize": 18,
-            "padding": 8,
-            "textAlign": "center",
-          },
-        ]
-      }
-    >
-      click to start contraction
-    </Text>
-  </View>
+    click to start contraction
+  </Text>
 </View>
 `;

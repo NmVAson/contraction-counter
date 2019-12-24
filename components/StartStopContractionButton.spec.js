@@ -1,5 +1,6 @@
 import React from 'react';
-import {Button, Text} from 'react-native';
+import {Text} from 'react-native';
+import Button from 'react-native-bootstrap-buttons';
 import StartStopContractionButton from './StartStopContractionButton';
 
 import TestRenderer from 'react-test-renderer';
@@ -32,15 +33,15 @@ it('matches previous snapshot', () => {
 it('changes button text on click', () => {
   let button = component.findByType(Button);
 
-  expect(button.props.title).toBe('click to start contraction');
+  expect(button.props.label).toBe('click to start contraction');
 
   startContraction();
 
-  expect(button.props.title).toBe('click to end contraction');
+  expect(button.props.label).toBe('click to end contraction');
 
   stopContraction();
 
-  expect(button.props.title).toBe('click to start contraction');
+  expect(button.props.label).toBe('click to start contraction');
 });
 
 it('triggers contraction start', () => {
