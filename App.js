@@ -7,7 +7,7 @@ import ContractionLogger from './components/ContractionLogger';
 export default function App() {
 
   return (
-    <View style={[s.container, s.h100, s.pt5, s.alignItemsCenter]}>
+    <View style={[s.container, s.h100, s.pt5, s.alignItemsCenter, {paddingTop: 90}]}>
       <Text style={s.h1}>Yay! We're in labor!</Text>
       <ContractionLogger styles={s} />
     </View>
