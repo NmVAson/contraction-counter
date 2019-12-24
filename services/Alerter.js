@@ -2,29 +2,17 @@ import React, {Component} from 'react';
 import {Alert} from 'react-native';
 
 const oneHourInMs = 3600000;
+const delta = 0.15;
 
 export default class Alerter {
-    delta = 0.15;
+    static trackContraction(frequency, duration) {
+        let isLessThanFiveMinutesApart = frequency <= 5 + delta;
+        let isAboutAMinute = Math.abs(duration - 1) <= delta;
+        let isTimeToCallDoc = isLessThanFiveMinutesApart && isAboutAMinute;
 
-    trackContraction(frequency, duration) {
-        if(this.isTimeToCallDoc(frequency, duration)) {
-            this.triggerCallDoctorAlert();
-            setTimeout(this.triggerHeadToHospitalAlert, oneHourInMs);
+        if(isTimeToCallDoc) {
+            Alert.alert('Time to call your doctor!', 'You\'ll be heading to the hospital in an hour!');
+            setTimeout(() => Alert.alert('Time to head to the hospital!', 'Don\'t forget your hospital bag :)'), oneHourInMs);
         }
-    }
-
-    isTimeToCallDoc(frequency, duration) {
-        let isLessThanFiveMinutesApart = frequency <= 5 + this.delta;
-        let isAboutAMinute = Math.abs(duration - 1) < this.delta;
-
-        return isLessThanFiveMinutesApart && isAboutAMinute;
-    }
-
-    triggerCallDoctorAlert() {
-        Alert.alert('Time to call your doctor! You\'ll be heading to the hospital in an hour!');
-    }
-
-    triggerHeadToHospitalAlert() {
-        Alert.alert('Time to head to the hospital!');
     }
 }
