@@ -24,17 +24,13 @@
     "@babel/core": "^7.0.0",
     "babel-preset-expo": "~8.0.0",
     "jest": "^24.9.0",
-    "jest-date-mock": "^1.0.7",
     "react-test-renderer": "^16.12.0"
   },
   "private": true,
   "jest": {
     "preset": "react-native",
     "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js",
-      "setupFiles": [
-        "jest-date-mock"
-      ]
+      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
     }
   }
 }
