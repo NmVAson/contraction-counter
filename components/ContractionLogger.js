@@ -3,6 +3,8 @@ import {View, Text} from 'react-native';
 import moment from 'moment';
 import shortid from 'shortid';
 
+import Alerter from '../services/Alerter';
+import ContractionCalculator from '../services/ContractionCalculator';
 import StartStopContractionButton from './StartStopContractionButton';
 import ContractionList from './ContractionList';
 
@@ -25,6 +27,15 @@ export default class ContractionLogger extends Component {
     onContractionEnd() {
       let currentContraction = this.state.contractions.pop();
       currentContraction.end = moment();
+
+      if(this.state.contractions.length >= 1) {
+        let previousContraction = this.state.contractions.slice(-1).pop();
+        let duration = ContractionCalculator.getDurationInMinutes(currentContraction);
+        let frequency = ContractionCalculator.getFrequencyInMinutes(previousContraction, currentContraction);
+
+        Alerter.trackContraction(frequency, duration);
+      }
+
       this.state.contractions.push(currentContraction);
 
       this.setState({

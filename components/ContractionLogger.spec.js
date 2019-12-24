@@ -4,6 +4,8 @@ import moment from 'moment';
 
 import StartStopContractionButton from './StartStopContractionButton';
 import ContractionLogger from './ContractionLogger';
+import Alerter from '../services/Alerter';
+import ContractionCalculator from '../services/ContractionCalculator';
 
 import TestRenderer from 'react-test-renderer';
 
@@ -17,9 +19,6 @@ beforeEach(() => {
   component = testRenderer.root;
 
   jest.spyOn(Date, 'now').mockImplementation(() => now);
-});
-
-afterEach(() => {
 });
 
 it('matches previous snapshot', () => {
@@ -53,4 +52,22 @@ it('supplies an end contraction function to button', () => {
   expect(testState.contractions).toHaveLength(1);
   let contraction = testState.contractions[0];
   expect(contraction.end).toEqual(now);
+});
+
+it('tracks contractions for alerts', () => {
+  let expectedDuration = 1;
+  let expectedFrequency = 2;
+  let button = component.findByType(StartStopContractionButton);
+  let testState = component.instance.state;
+  let alerterSpy = jest.spyOn(Alerter, 'trackContraction');
+  jest.spyOn(ContractionCalculator, 'getDurationInMinutes').mockImplementation(() => expectedDuration);
+  jest.spyOn(ContractionCalculator, 'getFrequencyInMinutes').mockImplementation(() => expectedFrequency);
+
+  button.props.startContraction();
+  button.props.endContraction();
+  button.props.startContraction();
+  button.props.endContraction();
+
+  expect(alerterSpy).toHaveBeenCalled();
+  expect(alerterSpy).toHaveBeenCalledWith(expectedFrequency, expectedDuration);
 });
