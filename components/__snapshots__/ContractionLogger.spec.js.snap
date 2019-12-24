@@ -54,17 +54,21 @@ exports[`matches previous snapshot 1`] = `
   <View
     style={
       Object {
+        "backgroundColor": "#fff",
         "flex": 1,
         "flexDirection": "column",
+        "paddingTop": 30,
       }
     }
   >
     <View
       style={
         Object {
+          "backgroundColor": "#f1f8ff",
           "flex": 0,
           "flexDirection": "row",
-          "height": 40,
+          "height": 70,
+          "padding": 20,
         }
       }
     >
@@ -76,7 +80,13 @@ exports[`matches previous snapshot 1`] = `
           }
         }
       >
-        <Text>
+        <Text
+          style={
+            Object {
+              "fontSize": 20,
+            }
+          }
+        >
           Frequency
         </Text>
       </View>
@@ -88,7 +98,13 @@ exports[`matches previous snapshot 1`] = `
           }
         }
       >
-        <Text>
+        <Text
+          style={
+            Object {
+              "fontSize": 20,
+            }
+          }
+        >
           Duration
         </Text>
       </View>
