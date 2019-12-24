@@ -2,55 +2,45 @@
 
 exports[`matches previous snapshot 1`] = `
 <View
-  style={null}
+  accessibilityRole="button"
+  accessibilityStates={Array []}
+  accessible={true}
+  focusable={true}
+  isTVSelectable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
 >
   <View
-    accessibilityRole="button"
-    accessibilityStates={Array []}
-    accessible={true}
-    focusable={true}
-    isTVSelectable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "opacity": 1,
-      }
+      Array [
+        Object {},
+      ]
     }
   >
-    <View
+    <Text
       style={
         Array [
-          Object {},
+          Object {
+            "color": "#007AFF",
+            "fontSize": 18,
+            "padding": 8,
+            "textAlign": "center",
+          },
         ]
       }
     >
-      <Text
-        style={
-          Array [
-            Object {
-              "color": "#007AFF",
-              "fontSize": 18,
-              "padding": 8,
-              "textAlign": "center",
-            },
-          ]
-        }
-      >
-        click to start contraction
-      </Text>
-    </View>
+      click to start contraction
+    </Text>
   </View>
-  <RCTScrollView
-    onContentSizeChange={[Function]}
-    style={null}
-  >
-    <View />
-  </RCTScrollView>
 </View>
 `;

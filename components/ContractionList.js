@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView} from 'react-native';
+import {ScrollView, Text} from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import moment from 'moment';
 import shortid from 'shortid';
@@ -26,25 +26,23 @@ export default class ContractionList extends Component {
     let durationLabel = this.getDuration(contraction);
     let frequencyLabel = this.getFrequency(contraction, previousContraction);
 
-    
     return <Row key={shortid.generate()}>
-      <Col>{frequencyLabel}</Col>
-      <Col>{durationLabel}</Col>
+      <Col><Text>{frequencyLabel}</Text></Col>
+      <Col><Text>{durationLabel}</Text></Col>
     </Row>;
   }
 
   render() {
-    return (<Grid style={this.props.styles.h75}>
-      <Row>
-        <Col>Frequency</Col>
-        <Col>Duration</Col>
+    return (<Grid>
+      <Row style={{height: 40}}>
+        <Col><Text>Frequency</Text></Col>
+        <Col><Text>Duration</Text></Col>
       </Row>
-      <ScrollView 
+      <ScrollView
         ref={ref => this.scrollView = ref}
         onContentSizeChange={(contentWidth, contentHeight) => {        
             this.scrollView.scrollToEnd({animated: true});
-        }}
-        style={this.props.styles.mt4}>
+        }}>
         {this.props.data.map(this.createRow.bind(this))}
       </ScrollView>
     </Grid>);

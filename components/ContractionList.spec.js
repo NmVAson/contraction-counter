@@ -1,21 +1,18 @@
 import React from 'react';
-import {View, ScrollView} from 'react-native';
+import {Text} from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import moment from 'moment';
 import ContractionList from './ContractionList';
 
 import TestRenderer from 'react-test-renderer';
 
-const fakeStyles = {
-  h75: null
-};
 let data;
 let component;
 let testRenderer;
 
 beforeEach(() => {
   data = [];
-  testRenderer = TestRenderer.create(<ContractionList styles={fakeStyles} data={data}/>);
+  testRenderer = TestRenderer.create(<ContractionList data={data}/>);
   component = testRenderer.root;
 });
 
@@ -25,7 +22,7 @@ afterEach(() => {
 
 it('matches previous snapshot', () => {
   let tree = TestRenderer
-    .create(<ContractionList styles={fakeStyles} data={data}/>)
+    .create(<ContractionList data={data}/>)
     .toJSON();
   
   expect(tree).toMatchSnapshot();
@@ -53,7 +50,7 @@ it('appends new element to table when props change', () => {
     start: expectedStartTime,
     end: expectedEndTime
   }];
-  testRenderer.update(<ContractionList styles={fakeStyles} data={dataWithAContraction}/>);
+  testRenderer.update(<ContractionList data={dataWithAContraction}/>);
 
   let updatedRows = table.findAllByType(Row);
   expect(updatedRows).toHaveLength(2);
@@ -67,7 +64,7 @@ it('displays duration data', () => {
     end: expectedEndTime
   }];
   
-  testRenderer.update(<ContractionList styles={fakeStyles} data={dataWithAContraction}/>);
+  testRenderer.update(<ContractionList data={dataWithAContraction}/>);
 
   let rows = component.findAllByType(Row);
   let columns = rows[1].findAllByType(Col);
@@ -92,7 +89,7 @@ it('displays frequency data', () => {
     end: expectedNewContractionEndTime
   }];
   
-  testRenderer.update(<ContractionList styles={fakeStyles} data={dataWithTwoContractions}/>);
+  testRenderer.update(<ContractionList data={dataWithTwoContractions}/>);
 
   let rows = component.findAllByType(Row);
   let columns = rows[2].findAllByType(Col);
@@ -116,7 +113,7 @@ it('displays frequency without duration when contraction hasn\'t ended yet', () 
     end: null
   }];
   
-  testRenderer.update(<ContractionList styles={fakeStyles} data={dataWithTwoContractions}/>);
+  testRenderer.update(<ContractionList data={dataWithTwoContractions}/>);
 
   let rows = component.findAllByType(Row);
   let columns = rows[2].findAllByType(Col);
@@ -128,5 +125,5 @@ it('displays frequency without duration when contraction hasn\'t ended yet', () 
 });
 
 function getText(textComponent) {
-  return textComponent.props.children
+  return textComponent.findByType(Text).props.children
 }

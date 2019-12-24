@@ -1,14 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import BootstrapStyleSheet from 'react-native-bootstrap-styles';
 
-import StartStopContractionButton from './components/StartStopContractionButton';
+import ContractionLogger from './components/ContractionLogger';
 
 export default function App() {
+
   return (
-    <View style={[s.container, s.mt5, s.justifyContentCenter, s.alignItemsCenter]}>
+    <View style={[s.container, s.h100, s.pt5, s.alignItemsCenter]}>
       <Text style={s.h1}>Yay! We're in labor!</Text>
-      <StartStopContractionButton styles={s}/>
+      <ContractionLogger styles={s} />
     </View>
   );
 }
