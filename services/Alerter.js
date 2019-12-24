@@ -9,7 +9,7 @@ export default class Alerter {
     trackContraction(frequency, duration) {
         if(this.isTimeToCallDoc(frequency, duration)) {
             this.triggerCallDoctorAlert();
-            setTimeout(() => Alert.alert('Time to head to the hospital!'), oneHourInMs);
+            setTimeout(this.triggerHeadToHospitalAlert, oneHourInMs);
         }
     }
 

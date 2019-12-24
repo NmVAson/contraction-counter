@@ -1,5 +1,5 @@
 import React from 'react';
-import {DeviceEventEmitter, Alert} from 'react-native';
+import {Alert} from 'react-native';
 
 import Alerter from './Alerter';
 
