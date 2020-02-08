@@ -20,21 +20,24 @@ export default class ContractionList extends Component {
   }
 
   createRow(contraction, i, contractions) {
+    let startTime = contraction.start.format('ddd, HH:mm');
     let previousContraction = contractions[i-1];
     let durationLabel = this.getDuration(contraction);
     let frequencyLabel = this.getFrequency(contraction, previousContraction);
 
-    return <Row key={shortid.generate()} style={styles.body}>
-      <Col><Text style={styles.text}>{frequencyLabel}</Text></Col>
-      <Col><Text style={styles.text}>{durationLabel}</Text></Col>
+    return <Row key={shortid.generate()}>
+      <Col style={styles.column}><Text style={styles.text}>{startTime}</Text></Col>
+      <Col style={styles.column}><Text style={styles.text}>{frequencyLabel}</Text></Col>
+      <Col style={styles.column}><Text style={styles.text}>{durationLabel}</Text></Col>
     </Row>;
   }
 
   render() {
     return (<Grid style={styles.container}>
       <Row style={styles.head}>
-        <Col><Text style={styles.text}>Frequency</Text></Col>
-        <Col><Text style={styles.text}>Duration</Text></Col>
+        <Col><Text style={styles.thText}>Time</Text></Col>
+        <Col><Text style={styles.thText}>Frequency</Text></Col>
+        <Col><Text style={styles.thText}>Duration</Text></Col>
       </Row>
       <ScrollView
         ref={ref => this.scrollView = ref}
@@ -54,18 +57,23 @@ const styles = StyleSheet.create({
   },
   head: { 
     height: 70,
-    padding: 20,
-    backgroundColor: '#f1f8ff' 
+    backgroundColor: '#f1f8ff'
   },
-  body: { 
+  thText: {
+    fontSize: 18,
+    textAlign: 'center',
+    paddingTop: 20,
+  },
+  text: {
+    fontSize: 13,
+    textAlign: 'center'
+  },
+  column: {
+    borderWidth: 2,
+    borderColor: '#f1f8ff',
     paddingLeft: 20,
     paddingRight: 20,
     paddingTop: 10,
-    paddingBottom: 10,
-    borderBottomColor: '#f1f8ff',
-    borderBottomWidth: 2
-  },
-  text: {
-    fontSize: 20
+    paddingBottom: 10
   }
 });

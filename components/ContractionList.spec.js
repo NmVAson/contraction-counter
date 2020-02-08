@@ -28,12 +28,14 @@ it('matches previous snapshot', () => {
   expect(tree).toMatchSnapshot();
 });
 
-it('initializes with frequency and duration column headers', () => {
+it('initializes with time, frequency and duration column headers', () => {
   let columns = component.findAllByType(Col);
-  let frequencyColumnHeader = getText(columns[0]);
-  let durationColumnHeader = getText(columns[1]);
+  let timestampColumnHeader = getText(columns[0]);
+  let frequencyColumnHeader = getText(columns[1]);
+  let durationColumnHeader = getText(columns[2]);
 
-  expect(columns).toHaveLength(2);
+  expect(columns).toHaveLength(3);
+  expect(timestampColumnHeader).toBe('Time');
   expect(frequencyColumnHeader).toBe('Frequency');
   expect(durationColumnHeader).toBe('Duration');
 });
@@ -68,11 +70,27 @@ it('displays duration data', () => {
 
   let rows = component.findAllByType(Row);
   let columns = rows[1].findAllByType(Col);
-  let frequencyColumn = getText(columns[0]);
-  let durationColumn = getText(columns[1]);
-  expect(columns).toHaveLength(2);
+  let timestampColumn = getText(columns[0]);
+  let frequencyColumn = getText(columns[1]);
+  let durationColumn = getText(columns[2]);
+  expect(columns).toHaveLength(3);
+  expect(timestampColumn).toBe(expectedStartTime.format('ddd, HH:mm'));
   expect(frequencyColumn).toBeUndefined();
   expect(durationColumn).toBe('1m 0s');
+});
+
+it('displays timestamp data', () => {
+  const expectedStartTime = moment();
+  let dataWithAContraction = [{
+    start: expectedStartTime
+  }];
+  
+  testRenderer.update(<ContractionList data={dataWithAContraction}/>);
+
+  let rows = component.findAllByType(Row);
+  let columns = rows[1].findAllByType(Col);
+  let timestampColumn = getText(columns[0]);
+  expect(timestampColumn).toBe(expectedStartTime.format('ddd, HH:mm'));
 });
 
 it('displays frequency data', () => {
@@ -93,9 +111,8 @@ it('displays frequency data', () => {
 
   let rows = component.findAllByType(Row);
   let columns = rows[2].findAllByType(Col);
-  let frequencyColumn = getText(columns[0]);
-  let durationColumn = getText(columns[1]);
-  expect(columns).toHaveLength(2);
+  let frequencyColumn = getText(columns[1]);
+  let durationColumn = getText(columns[2]);
   expect(frequencyColumn).toBe('0h 5m 0s');
   expect(durationColumn).toBe('1m 0s');
 });
@@ -117,9 +134,8 @@ it('displays frequency without duration when contraction hasn\'t ended yet', () 
 
   let rows = component.findAllByType(Row);
   let columns = rows[2].findAllByType(Col);
-  let frequencyColumn = getText(columns[0]);
-  let durationColumn = getText(columns[1]);
-  expect(columns).toHaveLength(2);
+  let frequencyColumn = getText(columns[1]);
+  let durationColumn = getText(columns[2]);
   expect(frequencyColumn).toBe('0h 5m 0s');
   expect(durationColumn).toBeUndefined();
 });

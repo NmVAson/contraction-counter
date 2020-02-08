@@ -18,7 +18,6 @@ exports[`matches previous snapshot 1`] = `
         "flex": 0,
         "flexDirection": "row",
         "height": 70,
-        "padding": 20,
       }
     }
   >
@@ -33,7 +32,29 @@ exports[`matches previous snapshot 1`] = `
       <Text
         style={
           Object {
-            "fontSize": 20,
+            "fontSize": 18,
+            "paddingTop": 20,
+            "textAlign": "center",
+          }
+        }
+      >
+        Time
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "flex": 1,
+          "flexDirection": "column",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "fontSize": 18,
+            "paddingTop": 20,
+            "textAlign": "center",
           }
         }
       >
@@ -51,7 +72,9 @@ exports[`matches previous snapshot 1`] = `
       <Text
         style={
           Object {
-            "fontSize": 20,
+            "fontSize": 18,
+            "paddingTop": 20,
+            "textAlign": "center",
           }
         }
       >
