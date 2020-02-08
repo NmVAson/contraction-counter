@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, AsyncStorage} from 'react-native';
 import moment from 'moment';
 import shortid from 'shortid';
 
@@ -8,13 +8,28 @@ import ContractionCalculator from '../services/ContractionCalculator';
 import StartStopContractionButton from './StartStopContractionButton';
 import ContractionList from './ContractionList';
 
+const STORAGE_KEY = 'contractions';
+
 export default class ContractionLogger extends Component {
     constructor(props) {
         super(props);
+
         this.state = { 
             contractions: []
         };
-      }
+    }
+
+    componentDidMount() {
+        AsyncStorage
+            .getItem(STORAGE_KEY)
+            .then((data) => {
+                if(data) this.setState({contractions: data});
+            });
+    }
+    
+    componentWillUnmount() {
+        AsyncStorage.setItem(STORAGE_KEY, this.state.contractions);
+    }
   
     onContractionStart() {
       this.state.contractions.push({start: moment(), end: null});
