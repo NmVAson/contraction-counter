@@ -10,11 +10,12 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.7.1",
     "expo": "~36.0.0",
     "moment": "^2.24.0",
-    "react": "~16.9.0",
+    "react": "16.9.0",
     "react-dom": "~16.9.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "react-native": "0.61.5",
     "react-native-bootstrap-buttons": "0.0.1",
     "react-native-bootstrap-styles": "0.0.9",
     "react-native-easy-grid": "^0.2.2",
