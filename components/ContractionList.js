@@ -20,7 +20,7 @@ export default class ContractionList extends Component {
   }
 
   createRow(contraction, i, contractions) {
-    let startTime = contraction.start.format('ddd, HH:mm');
+    let startTime = moment(contraction.start).format('ddd, HH:mm');
     let previousContraction = contractions[i-1];
     let durationLabel = this.getDuration(contraction);
     let frequencyLabel = this.getFrequency(contraction, previousContraction);

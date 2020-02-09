@@ -23,16 +23,13 @@ export default class ContractionLogger extends Component {
         AsyncStorage
             .getItem(STORAGE_KEY)
             .then((data) => {
-                if(data) this.setState({contractions: data});
+                if(data) this.setState({contractions: JSON.parse(data)});
             });
-    }
-    
-    componentWillUnmount() {
-        AsyncStorage.setItem(STORAGE_KEY, this.state.contractions);
     }
   
     onContractionStart() {
       this.state.contractions.push({start: moment(), end: null});
+      AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(this.state.contractions));
 
       this.setState({
           contractions: this.state.contractions
@@ -52,6 +49,7 @@ export default class ContractionLogger extends Component {
       }
 
       this.state.contractions.push(currentContraction);
+      AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(this.state.contractions));
 
       this.setState({
           contractions: this.state.contractions
@@ -59,7 +57,7 @@ export default class ContractionLogger extends Component {
     }
   
     render() {
-        return (<View style={[this.props.styles.container, this.props.styles.h90]}>
+        return (<View style={[this.props.styles.container, this.props.styles.h80]}>
             <StartStopContractionButton
                 startContraction={this.onContractionStart.bind(this)}
                 endContraction={this.onContractionEnd.bind(this)}/>
