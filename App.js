@@ -13,12 +13,6 @@ export default function App() {
       <ContractionLogger styles={s}/>
       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center'}}>
         <Button 
-          buttonType="info"
-          rounded={true}
-          containerStyle={{marginRight: 10}}
-          label="Add Contraction"
-          onPress={() => {}}/>
-        <Button 
           buttonType="danger"
           label="Clear Data"
           onPress={() => AsyncStorage.clear()}/>
