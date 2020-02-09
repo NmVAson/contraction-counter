@@ -33,6 +33,7 @@ export default class StartStopContractionButton extends Component {
     return (<Button 
         label={this.state.title}
         labelStyle={styles.buttonLabel}
+        containerStyle={{backgroundColor: '#9EC4C5'}}
         onPress={this.toggleContraction.bind(this)}/>);
   }
 }

@@ -54,24 +54,25 @@ export default function ContractionList() {
 const styles = StyleSheet.create({
   container: { 
     paddingTop: 30, 
-    backgroundColor: '#fff'
   },
   head: { 
     height: 70,
-    backgroundColor: '#f1f8ff'
+    backgroundColor: '#F5E4DC'
   },
   thText: {
     fontSize: 18,
     textAlign: 'center',
     paddingTop: 20,
+    color: 'grey'
   },
   text: {
     fontSize: 13,
-    textAlign: 'center'
+    textAlign: 'center',
+    color: 'grey'
   },
   column: {
     borderWidth: 2,
-    borderColor: '#f1f8ff',
+    borderColor: '#F5E4DC',
     paddingLeft: 20,
     paddingRight: 20,
     paddingTop: 10,
