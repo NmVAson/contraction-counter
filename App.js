@@ -1,20 +1,33 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import BootstrapStyleSheet from 'react-native-bootstrap-styles';
-import Store from './context';
+import {Header} from 'react-native-elements';
 
+import Store from './context';
 import ContractionLogger from './components/ContractionLogger';
 import FooterButtonGroup from './components/FooterButtonGroup';
+import SettingsOverlay from './components/SettingsOverlay';
 
 export default function App() {
+  const [isSettingsVisible, setSettingsVisible] = React.useState(false);
 
   return (
   <Store>
-    <View style={[s.container, s.h100, s.pt5, s.alignItemsCenter, {paddingTop: 75}]}>
-      <Text style={[s.h1, {color: 'grey'}]}>Yay, we're in labor!</Text>
+    <Header
+      centerComponent={{ text: 'Contraction Timer', style: { color: '#fff' } }}
+      rightComponent={{ icon: 'settings', color: '#fff', onPress: () => setSettingsVisible(true)}}
+      containerStyle={{
+        backgroundColor: 'grey',
+        justifyContent: 'space-around',
+      }}
+    />
+    <View style={[s.container, s.h100, s.pt5, s.alignItemsCenter]}>
       <ContractionLogger styles={s}/>
       <FooterButtonGroup/>
     </View>
+    <SettingsOverlay 
+      isVisible={isSettingsVisible}
+      close={() => setSettingsVisible(false)}/>
   </Store>);
 }
 

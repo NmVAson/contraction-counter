@@ -6,10 +6,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Context } from '../context';
 
 export default function FooterButtonGroup() {
-    const {clearContractions} = React.useContext(Context);
+    const {clearContractions, providerNumber} = React.useContext(Context);
 
     return (      
-    <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', paddingTop: 20}}>
+    <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
         <Button 
             title=" doctor"
             type="outline"
@@ -22,7 +22,7 @@ export default function FooterButtonGroup() {
             }
             buttonStyle={{borderColor: '#F2C2C2', marginRight: 10}}
             titleStyle={{color: '#F2C2C2', fontSize: 20}}
-            onPress={() => Linking.openURL('tel:3177735876')}/>
+            onPress={() => Linking.openURL(`tel:${providerNumber}`)}/>
         <Button 
             title=" false alarm"
             type="outline"
@@ -33,7 +33,7 @@ export default function FooterButtonGroup() {
                     color="#C1DDD8"
                 />
             }
-            buttonStyle={{borderColor: '#C1DDD8', maLeft: 10}}
+            buttonStyle={{borderColor: '#C1DDD8', marginLeft: 10}}
             titleStyle={{color: '#C1DDD8', fontSize: 20}}
             onPress={clearContractions}/>
     </View>);

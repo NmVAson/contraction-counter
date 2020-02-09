@@ -1,9 +1,10 @@
 import React, { createContext, useState, useEffect } from "react";
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, StyleSheet } from 'react-native';
 
 export const Context = createContext(null);
 
 export default ({ children }) => {
+    const [providerNumber, setProviderNumber] = useLocalStorage('provider', '3177735876');
     const [contractions, setContractions] = useLocalStorage('contractions', []);
 
     return (
@@ -15,7 +16,9 @@ export default ({ children }) => {
                     c,
                 ]);
             },
-            clearContractions: () => setContractions([])
+            clearContractions: () => setContractions([]),
+            providerNumber,
+            setProviderNumber
         }}>
             {children}
         </Context.Provider>
