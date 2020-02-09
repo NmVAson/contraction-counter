@@ -12,7 +12,8 @@
     "version": "1.0.0",
     "ios": {
       "bundleIdentifier": "com.nmvason.contractions",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.0",
+      "supportsTablet": true
     },
     "android": {
       "package": "com.nmvason.contractions",
@@ -31,9 +32,6 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
     "description": "",
     "githubUrl": "https://github.com/NmVAson/contraction-counter"
   }
