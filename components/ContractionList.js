@@ -4,22 +4,25 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import moment from 'moment';
 import shortid from 'shortid';
 
+import {Context} from '../context';
 import ContractionCalculator from '../services/ContractionCalculator';
 
-export default class ContractionList extends Component {
-  getDuration(contraction) {
+export default function ContractionList() {
+  const {contractions} = React.useContext(Context);
+
+  getDuration = (contraction) => {
     if(!contraction.end) return;
     
     return ContractionCalculator.getDurationToDisplay(contraction);
   }
 
-  getFrequency(contraction, prevContraction) {
+  getFrequency = (contraction, prevContraction) => {
     if(!prevContraction) return;
     
     return ContractionCalculator.getFrequencyToDisplay(prevContraction, contraction);
   }
 
-  createRow(contraction, i, contractions) {
+  createRow = (contraction, i, contractions) => {
     let startTime = moment(contraction.start).format('ddd, HH:mm');
     let previousContraction = contractions[i-1];
     let durationLabel = this.getDuration(contraction);
@@ -32,22 +35,20 @@ export default class ContractionList extends Component {
     </Row>;
   }
 
-  render() {
-    return (<Grid style={styles.container}>
-      <Row style={styles.head}>
-        <Col><Text style={styles.thText}>Time</Text></Col>
-        <Col><Text style={styles.thText}>Frequency</Text></Col>
-        <Col><Text style={styles.thText}>Duration</Text></Col>
-      </Row>
-      <ScrollView
-        ref={ref => this.scrollView = ref}
-        onContentSizeChange={(contentWidth, contentHeight) => {        
-            this.scrollView.scrollToEnd({animated: true});
-        }}>
-        {this.props.data.map(this.createRow.bind(this))}
-      </ScrollView>
-    </Grid>);
-  }
+  return (<Grid style={styles.container}>
+    <Row style={styles.head}>
+      <Col><Text style={styles.thText}>Time</Text></Col>
+      <Col><Text style={styles.thText}>Frequency</Text></Col>
+      <Col><Text style={styles.thText}>Duration</Text></Col>
+    </Row>
+    <ScrollView
+      ref={ref => this.scrollView = ref}
+      onContentSizeChange={(contentWidth, contentHeight) => {        
+          this.scrollView.scrollToEnd({animated: true});
+      }}>
+      {contractions.map(this.createRow)}
+    </ScrollView>
+  </Grid>);
 }
 
 const styles = StyleSheet.create({

@@ -7,62 +7,35 @@ import Alerter from '../services/Alerter';
 import ContractionCalculator from '../services/ContractionCalculator';
 import StartStopContractionButton from './StartStopContractionButton';
 import ContractionList from './ContractionList';
+import { Context } from '../context';
 
-const STORAGE_KEY = 'contractions';
 
-export default class ContractionLogger extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = { 
-            contractions: []
-        };
-    }
-
-    componentDidMount() {
-        AsyncStorage
-            .getItem(STORAGE_KEY)
-            .then((data) => {
-                if(data) this.setState({contractions: JSON.parse(data)});
-            });
+export default function ContractionLogger({ styles }) {
+    const {contractions, addContraction} = React.useContext(Context);
+  
+    onContractionStart = () => {
+      addContraction({start: moment(), end: null});
     }
   
-    onContractionStart() {
-      this.state.contractions.push({start: moment(), end: null});
-      AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(this.state.contractions));
-
-      this.setState({
-          contractions: this.state.contractions
-      });
-    }
-  
-    onContractionEnd() {
-      let currentContraction = this.state.contractions.pop();
+    onContractionEnd = () => {
+      let currentContraction = contractions.pop();
       currentContraction.end = moment();
 
-      if(this.state.contractions.length >= 1) {
-        let previousContraction = this.state.contractions.slice(-1).pop();
+      if(contractions.length >= 1) {
+        let previousContraction = contractions.slice(-1).pop();
         let duration = ContractionCalculator.getDurationInMinutes(currentContraction);
         let frequency = ContractionCalculator.getFrequencyInMinutes(previousContraction, currentContraction);
 
         Alerter.trackContraction(frequency, duration);
       }
 
-      this.state.contractions.push(currentContraction);
-      AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(this.state.contractions));
-
-      this.setState({
-          contractions: this.state.contractions
-      });
+      addContraction(currentContraction);
     }
   
-    render() {
-        return (<View style={[this.props.styles.container, this.props.styles.h80]}>
-            <StartStopContractionButton
-                startContraction={this.onContractionStart.bind(this)}
-                endContraction={this.onContractionEnd.bind(this)}/>
-            <ContractionList
-                data={this.state.contractions}/>
-        </View>);
-    }
+    return (<View style={[styles.container, styles.h80]}>
+        <StartStopContractionButton
+            startContraction={this.onContractionStart.bind(this)}
+            endContraction={this.onContractionEnd.bind(this)}/>
+        <ContractionList/>
+    </View>);
 }
