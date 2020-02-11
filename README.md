@@ -6,6 +6,13 @@ This will count the contraction duration and frequency, as well as notify you wh
 ## Screenshots
 <img alt="screenshot of empty page" src="./assets/screenshot-empty-page.png" width="270" hspace="5"/><img alt="screenshot of populated page" src="./assets/screenshot-full-page.png" width="270" hspace="5"/><img alt="screenshot of settings" src="./assets/screenshot-settings.png" width="270" hspace="5"/>
 
+## Prereqs
+This project requires Expo and Jest
+```bash
+> npm i expo-cli --global
+> npm i jest --global
+```
+
 ## Spin-up
 ```bash
 > npm i
@@ -13,8 +20,6 @@ This will count the contraction duration and frequency, as well as notify you wh
 ```
 
 ## Run Tests
-This repo contains Jest tests
-
 ```bash 
 > npm test
 ```
