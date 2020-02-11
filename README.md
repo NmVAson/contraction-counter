@@ -12,5 +12,12 @@ This will count the contraction duration and frequency, as well as notify you wh
 > npm start
 ```
 
+## Run Tests
+This repo contains Jest tests
+
+```bash 
+> npm test
+```
+
 ## Disclaimer
 I'm a terrible person and never tested what it looks like for iOS :grimacing:
