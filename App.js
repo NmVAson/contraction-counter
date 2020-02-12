@@ -21,7 +21,7 @@ export default function App() {
         justifyContent: 'space-around',
       }}
     />
-    <View style={[s.container, s.h100, s.pt5, s.alignItemsCenter]}>
+    <View style={[s.container, s.h100, s.pt4, s.alignItemsCenter]}>
       <ContractionLogger styles={s}/>
       <FooterButtonGroup/>
     </View>

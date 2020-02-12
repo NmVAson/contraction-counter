@@ -54,7 +54,8 @@ export default function ContractionList() {
 
 const styles = StyleSheet.create({
   container: { 
-    paddingTop: 30, 
+    paddingTop: 20, 
+    paddingBottom: 20
   },
   head: { 
     height: 70,
@@ -74,8 +75,8 @@ const styles = StyleSheet.create({
   column: {
     borderWidth: 2,
     borderColor: '#F5E4DC',
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 15,
+    paddingRight: 15,
     paddingTop: 10,
     paddingBottom: 10
   }

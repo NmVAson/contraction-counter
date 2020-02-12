@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Button from "react-native-bootstrap-buttons";
 
 export default class StartStopContractionButton extends Component {
@@ -11,7 +11,7 @@ export default class StartStopContractionButton extends Component {
     };
   }
 
-  toggleContraction() {
+  toggleContraction = () => {
     let isStartingANewContraction = !this.state.isContracting;
     let newTitle;
 
@@ -33,8 +33,8 @@ export default class StartStopContractionButton extends Component {
     return (<Button 
         label={this.state.title}
         labelStyle={styles.buttonLabel}
-        containerStyle={{backgroundColor: '#9EC4C5'}}
-        onPress={this.toggleContraction.bind(this)}/>);
+        containerStyle={styles.buttonContainer}
+        onPress={this.toggleContraction}/>);
   }
 }
 
@@ -43,5 +43,8 @@ const styles = StyleSheet.create({
     fontSize: 20, 
     padding: 20,
     textAlign: 'center'
+  },
+  buttonContainer: {
+    backgroundColor: '#9EC4C5'
   }
 });

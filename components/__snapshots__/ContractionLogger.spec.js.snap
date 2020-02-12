@@ -53,7 +53,8 @@ exports[`matches previous snapshot 1`] = `
       Object {
         "flex": 1,
         "flexDirection": "column",
-        "paddingTop": 30,
+        "paddingBottom": 20,
+        "paddingTop": 20,
       }
     }
   >
