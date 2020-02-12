@@ -34,14 +34,6 @@ afterEach(() => {
   jest.restoreAllMocks();
 });
 
-it('matches previous snapshot', () => {
-  let tree = TestRenderer
-    .create(<ContractionList/>)
-    .toJSON();
-  
-  expect(tree).toMatchSnapshot();
-});
-
 it('initializes with time, frequency and duration column headers', () => {
   let columns = component.findAllByType(Col);
   let timestampColumnHeader = getText(columns[0]);
