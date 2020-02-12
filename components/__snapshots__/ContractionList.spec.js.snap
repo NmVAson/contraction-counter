@@ -4,7 +4,6 @@ exports[`matches previous snapshot 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": "#fff",
       "flex": 1,
       "flexDirection": "column",
       "paddingTop": 30,
@@ -14,7 +13,7 @@ exports[`matches previous snapshot 1`] = `
   <View
     style={
       Object {
-        "backgroundColor": "#f1f8ff",
+        "backgroundColor": "#F5E4DC",
         "flex": 0,
         "flexDirection": "row",
         "height": 70,
@@ -32,6 +31,7 @@ exports[`matches previous snapshot 1`] = `
       <Text
         style={
           Object {
+            "color": "grey",
             "fontSize": 18,
             "paddingTop": 20,
             "textAlign": "center",
@@ -52,6 +52,7 @@ exports[`matches previous snapshot 1`] = `
       <Text
         style={
           Object {
+            "color": "grey",
             "fontSize": 18,
             "paddingTop": 20,
             "textAlign": "center",
@@ -72,6 +73,7 @@ exports[`matches previous snapshot 1`] = `
       <Text
         style={
           Object {
+            "color": "grey",
             "fontSize": 18,
             "paddingTop": 20,
             "textAlign": "center",
@@ -85,7 +87,180 @@ exports[`matches previous snapshot 1`] = `
   <RCTScrollView
     onContentSizeChange={[Function]}
   >
-    <View />
+    <View>
+      <View
+        style={
+          Object {
+            "flex": 1,
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "borderColor": "#F5E4DC",
+              "borderWidth": 2,
+              "flex": 1,
+              "flexDirection": "column",
+              "paddingBottom": 10,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "grey",
+                "fontSize": 13,
+                "textAlign": "center",
+              }
+            }
+          >
+            Wed, 11:46
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "borderColor": "#F5E4DC",
+              "borderWidth": 2,
+              "flex": 1,
+              "flexDirection": "column",
+              "paddingBottom": 10,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "grey",
+                "fontSize": 13,
+                "textAlign": "center",
+              }
+            }
+          />
+        </View>
+        <View
+          style={
+            Object {
+              "borderColor": "#F5E4DC",
+              "borderWidth": 2,
+              "flex": 1,
+              "flexDirection": "column",
+              "paddingBottom": 10,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "grey",
+                "fontSize": 13,
+                "textAlign": "center",
+              }
+            }
+          >
+            1m 0s
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 1,
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "borderColor": "#F5E4DC",
+              "borderWidth": 2,
+              "flex": 1,
+              "flexDirection": "column",
+              "paddingBottom": 10,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "grey",
+                "fontSize": 13,
+                "textAlign": "center",
+              }
+            }
+          >
+            Wed, 11:51
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "borderColor": "#F5E4DC",
+              "borderWidth": 2,
+              "flex": 1,
+              "flexDirection": "column",
+              "paddingBottom": 10,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "grey",
+                "fontSize": 13,
+                "textAlign": "center",
+              }
+            }
+          >
+            0h 5m 0s
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "borderColor": "#F5E4DC",
+              "borderWidth": 2,
+              "flex": 1,
+              "flexDirection": "column",
+              "paddingBottom": 10,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "grey",
+                "fontSize": 13,
+                "textAlign": "center",
+              }
+            }
+          >
+            1m 0s
+          </Text>
+        </View>
+      </View>
+    </View>
   </RCTScrollView>
 </View>
 `;

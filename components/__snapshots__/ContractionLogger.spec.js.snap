@@ -22,7 +22,7 @@ exports[`matches previous snapshot 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "backgroundColor": "#0984e3",
+        "backgroundColor": "#9EC4C5",
         "borderRadius": 5,
         "opacity": 1,
       }
@@ -51,7 +51,6 @@ exports[`matches previous snapshot 1`] = `
   <View
     style={
       Object {
-        "backgroundColor": "#fff",
         "flex": 1,
         "flexDirection": "column",
         "paddingTop": 30,
@@ -61,7 +60,7 @@ exports[`matches previous snapshot 1`] = `
     <View
       style={
         Object {
-          "backgroundColor": "#f1f8ff",
+          "backgroundColor": "#F5E4DC",
           "flex": 0,
           "flexDirection": "row",
           "height": 70,
@@ -79,6 +78,7 @@ exports[`matches previous snapshot 1`] = `
         <Text
           style={
             Object {
+              "color": "grey",
               "fontSize": 18,
               "paddingTop": 20,
               "textAlign": "center",
@@ -99,6 +99,7 @@ exports[`matches previous snapshot 1`] = `
         <Text
           style={
             Object {
+              "color": "grey",
               "fontSize": 18,
               "paddingTop": 20,
               "textAlign": "center",
@@ -119,6 +120,7 @@ exports[`matches previous snapshot 1`] = `
         <Text
           style={
             Object {
+              "color": "grey",
               "fontSize": 18,
               "paddingTop": 20,
               "textAlign": "center",

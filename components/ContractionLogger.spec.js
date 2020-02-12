@@ -10,15 +10,21 @@ import ContractionCalculator from '../services/ContractionCalculator';
 import TestRenderer from 'react-test-renderer';
 
 const fakeStyles = {};
+const addSpy = jest.fn();
+const fakeContext = {
+  contractions: [],
+  addContraction: addSpy.mockImplementation((contraction) => fakeContext.contractions.push(contraction))
+};
 const now = moment();
 let component;
 let testRenderer;
 
 beforeEach(() => {
-  testRenderer = TestRenderer.create(<ContractionLogger styles={fakeStyles}/>);
-  component = testRenderer.root;
-
   jest.spyOn(Date, 'now').mockImplementation(() => now);
+  jest.spyOn(React, 'useContext').mockImplementation(() => fakeContext);
+
+  testRenderer = TestRenderer.create(<ContractionLogger styles={fakeStyles}/>);
+  component = testRenderer.root.findByType(ContractionLogger);
 });
 
 it('matches previous snapshot', () => {
@@ -31,34 +37,36 @@ it('matches previous snapshot', () => {
 
 it('supplies a new contraction function to button', () => {
   let button = component.findByType(StartStopContractionButton);
-  let testState = component.instance.state;
-  expect(testState.contractions).toHaveLength(0);
+  let expectedContraction = {
+    start: now,
+    end: null
+  };
 
   button.props.startContraction();
 
-  expect(testState.contractions).toHaveLength(1);
-  let contraction = testState.contractions[0];
-  expect(contraction.start).toEqual(now);
-  expect(contraction.end).toBeNull();
+  expect(addSpy).toHaveBeenCalled();
+  expect(addSpy).toHaveBeenCalledWith(expectedContraction);
 });
 
 it('supplies an end contraction function to button', () => {
   let button = component.findByType(StartStopContractionButton);
-  let testState = component.instance.state;
+  let expectedContraction = {
+    start: now,
+    end: now
+  };
   button.props.startContraction();
+  addSpy.mockClear();
 
   button.props.endContraction();
 
-  expect(testState.contractions).toHaveLength(1);
-  let contraction = testState.contractions[0];
-  expect(contraction.end).toEqual(now);
+  expect(addSpy).toHaveBeenCalled();
+  expect(addSpy).toHaveBeenCalledWith(expectedContraction);
 });
 
 it('tracks contractions for alerts', () => {
   let expectedDuration = 1;
   let expectedFrequency = 2;
   let button = component.findByType(StartStopContractionButton);
-  let testState = component.instance.state;
   let alerterSpy = jest.spyOn(Alerter, 'trackContraction');
   jest.spyOn(ContractionCalculator, 'getDurationInMinutes').mockImplementation(() => expectedDuration);
   jest.spyOn(ContractionCalculator, 'getFrequencyInMinutes').mockImplementation(() => expectedFrequency);

@@ -13,11 +13,11 @@ import { Context } from '../context';
 export default function ContractionLogger({ styles }) {
     const {contractions, addContraction} = React.useContext(Context);
   
-    onContractionStart = () => {
+    const onContractionStart = () => {
       addContraction({start: moment(), end: null});
     }
   
-    onContractionEnd = () => {
+    const onContractionEnd = () => {
       let currentContraction = contractions.pop();
       currentContraction.end = moment();
 
@@ -34,8 +34,8 @@ export default function ContractionLogger({ styles }) {
   
     return (<View style={[styles.container, styles.h80]}>
         <StartStopContractionButton
-            startContraction={this.onContractionStart.bind(this)}
-            endContraction={this.onContractionEnd.bind(this)}/>
+            startContraction={onContractionStart}
+            endContraction={onContractionEnd}/>
         <ContractionList/>
     </View>);
 }

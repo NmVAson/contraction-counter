@@ -14,7 +14,7 @@ exports[`matches previous snapshot 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Object {
-      "backgroundColor": "#0984e3",
+      "backgroundColor": "#9EC4C5",
       "borderRadius": 5,
       "opacity": 1,
     }

@@ -9,24 +9,25 @@ import ContractionCalculator from '../services/ContractionCalculator';
 
 export default function ContractionList() {
   const {contractions} = React.useContext(Context);
+  const [scrollView, setScrollView] = React.useState(null);
 
-  getDuration = (contraction) => {
+  const getDuration = (contraction) => {
     if(!contraction.end) return;
     
     return ContractionCalculator.getDurationToDisplay(contraction);
   }
 
-  getFrequency = (contraction, prevContraction) => {
+  const getFrequency = (contraction, prevContraction) => {
     if(!prevContraction) return;
     
     return ContractionCalculator.getFrequencyToDisplay(prevContraction, contraction);
   }
 
-  createRow = (contraction, i, contractions) => {
+  const createRow = (contraction, i, contractions) => {
     let startTime = moment(contraction.start).format('ddd, HH:mm');
     let previousContraction = contractions[i-1];
-    let durationLabel = this.getDuration(contraction);
-    let frequencyLabel = this.getFrequency(contraction, previousContraction);
+    let durationLabel = getDuration(contraction);
+    let frequencyLabel = getFrequency(contraction, previousContraction);
 
     return <Row key={shortid.generate()}>
       <Col style={styles.column}><Text style={styles.text}>{startTime}</Text></Col>
@@ -42,11 +43,11 @@ export default function ContractionList() {
       <Col><Text style={styles.thText}>Duration</Text></Col>
     </Row>
     <ScrollView
-      ref={ref => this.scrollView = ref}
+      ref={ref => setScrollView(ref)}
       onContentSizeChange={(contentWidth, contentHeight) => {        
-          this.scrollView.scrollToEnd({animated: true});
+          scrollView.scrollToEnd({animated: true});
       }}>
-      {contractions.map(this.createRow)}
+      {contractions.map(createRow)}
     </ScrollView>
   </Grid>);
 }
